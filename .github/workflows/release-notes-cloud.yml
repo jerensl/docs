@@ -65,3 +65,4 @@ jobs:
               [1]: https://meshery.layer5.io
               [2]: https://github.com/peter-evans/create-pull-request
             push-to-fork: jerensl/docs
+            branch: meshery-cloud-release-${{ steps.meshery-cloud.outputs.release_tag }}
