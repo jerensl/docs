@@ -19,15 +19,22 @@ jobs:
   update_release_notes_docs:
       runs-on: ubuntu-22.04
       steps:
+        - uses: actions/create-github-app-token@v1
+          id: generate-token
+          with:
+            app-id: ${{ secrets.APP_ID }}
+            private-key: ${{ secrets.APP_PRIVATE_KEY }}
+            owner: jerensl
+            repositories: docs
         - name: Checkout
           uses: actions/checkout@v4
           with:
-            token: ${{ secrets.RELEASEDRAFTER_PAT }}
-            ref: ${{ github.event.pull_request.head.sha }}
+            token: ${{ steps.generate-token.outputs.token }}
+            ref: ${{ steps.generate-token.outputs.token }}
         - name: Get Latest Meshery Cloud Release
           id: meshery-cloud
           env:
-            ACCESS_TOKEN: ${{ secrets.RELEASEDRAFTER_PAT }}
+            ACCESS_TOKEN: ${{ steps.generate-token.outputs.token }}
           run: |
             release_tag=$(curl -sL -H "Authorization: token $ACCESS_TOKEN" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/layer5io/meshery-cloud/releases/latest | jq -r ".tag_name")
             echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
@@ -37,7 +44,7 @@ jobs:
         - name: Get Release Info
           if: steps.meshery-cloud.outputs.current_tag != steps.meshery-cloud.outputs.release_tag
           env:
-            ACCESS_TOKEN: ${{ secrets.RELEASEDRAFTER_PAT }}
+            ACCESS_TOKEN: ${{ steps.generate-token.outputs.token }}
           run: |
             curl -sL -H "Authorization: token $ACCESS_TOKEN" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/layer5io/meshery-cloud/releases/latest > latest_release.json
             
@@ -46,13 +53,6 @@ jobs:
             export RELEASE_BODY=$( cat latest_release.json | jq '.["body"]' | tr -d '"')
 
             printf '%b\n' "---\ntitle: $RELEASE_TAG\ndate: $(date +'%Y-%m-%d')\ntag: $RELEASE_TAG\nprerelease: $PRERELEASE\n---\n\n$RELEASE_BODY" > ./content/en/cloud/reference/releases/$RELEASE_TAG.md
-        - uses: actions/create-github-app-token@v1
-          id: generate-token
-          with:
-            app-id: ${{ secrets.APP_ID }}
-            private-key: ${{ secrets.APP_PRIVATE_KEY }}
-            owner: jerensl
-            repositories: docs
         - uses: peter-evans/create-pull-request@v7
           with:
             token: ${{ steps.generate-token.outputs.token }}
