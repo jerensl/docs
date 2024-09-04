@@ -1,0 +1,42 @@
+{
+  "url": "https://api.github.com/repos/layer5io/meshery-cloud/releases/173197510",
+  "assets_url": "https://api.github.com/repos/layer5io/meshery-cloud/releases/173197510/assets",
+  "upload_url": "https://uploads.github.com/repos/layer5io/meshery-cloud/releases/173197510/assets{?name,label}",
+  "html_url": "https://github.com/layer5io/meshery-cloud/releases/tag/v0.8.8",
+  "id": 173197510,
+  "author": {
+    "login": "l5io",
+    "id": 47201130,
+    "node_id": "MDQ6VXNlcjQ3MjAxMTMw",
+    "avatar_url": "https://avatars.githubusercontent.com/u/47201130?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/l5io",
+    "html_url": "https://github.com/l5io",
+    "followers_url": "https://api.github.com/users/l5io/followers",
+    "following_url": "https://api.github.com/users/l5io/following{/other_user}",
+    "gists_url": "https://api.github.com/users/l5io/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/l5io/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/l5io/subscriptions",
+    "organizations_url": "https://api.github.com/users/l5io/orgs",
+    "repos_url": "https://api.github.com/users/l5io/repos",
+    "events_url": "https://api.github.com/users/l5io/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/l5io/received_events",
+    "type": "User",
+    "site_admin": false
+  },
+  "node_id": "RE_kwDOCgpryc4KUsjG",
+  "tag_name": "v0.8.8",
+  "target_commitish": "refs/heads/master",
+  "name": "Layer5 Cloud v0.8.8",
+  "draft": false,
+  "prerelease": false,
+  "created_at": "2024-09-03T17:08:04Z",
+  "published_at": "2024-09-03T17:08:45Z",
+  "assets": [
+
+  ],
+  "tarball_url": "https://api.github.com/repos/layer5io/meshery-cloud/tarball/v0.8.8",
+  "zipball_url": "https://api.github.com/repos/layer5io/meshery-cloud/zipball/v0.8.8",
+  "body": "## What's New\r\n**General**\r\n- Fix Learning Path Issues @Alero-Awani (#2761)\r\n\r\n## Contributors\r\n\r\nThank you to our contributors for making this release possible:\r\n@Alero-Awani, @l5io and @leecalcote\r\n",
+  "mentions_count": 3
+}
