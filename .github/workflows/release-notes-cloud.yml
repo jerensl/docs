@@ -34,7 +34,7 @@ jobs:
         - name: Get Latest Meshery Cloud Release
           id: meshery-cloud
           env:
-            ACCESS_TOKEN: ${{ steps.generate-token.outputs.token }}
+            ACCESS_TOKEN: ${{ secrets.RELEASEDRAFTER_PAT }}
           run: |
             release_tag=$(curl -sL -H "Authorization: token $ACCESS_TOKEN" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/layer5io/meshery-cloud/releases/latest | jq -r ".tag_name")
             echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
@@ -44,7 +44,7 @@ jobs:
         - name: Get Release Info
           if: steps.meshery-cloud.outputs.current_tag != steps.meshery-cloud.outputs.release_tag
           env:
-            ACCESS_TOKEN: ${{ steps.generate-token.outputs.token }}
+            ACCESS_TOKEN: ${{ secrets.RELEASEDRAFTER_PAT }}
           run: |
             curl -sL -H "Authorization: token $ACCESS_TOKEN" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/layer5io/meshery-cloud/releases/latest > latest_release.json
             
