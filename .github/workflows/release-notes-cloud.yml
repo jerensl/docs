@@ -51,7 +51,9 @@ jobs:
           with:
             app-id: ${{ secrets.APP_ID }}
             private-key: ${{ secrets.APP_PRIVATE_KEY }}
+            owner: jerensl
+            repositories: docs
         - uses: peter-evans/create-pull-request@v7
           with:
-            token: ${{ secrets.RELEASEDRAFTER_PAT }}
+            token: ${{ steps.generate-token.outputs.token }}
             push-to-fork: jerensl/docs
