@@ -31,7 +31,7 @@ jobs:
           run: |
             release_tag=$(curl -sL -H "Authorization: token $ACCESS_TOKEN" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/layer5io/meshery-cloud/releases/latest | jq -r ".tag_name")
             echo "release_tag=$release_tag" >> $GITHUB_OUTPUT
-            current_tag=$(<meshery-cloud.version)
+            current_tag=$(meshery-cloud.version)
             echo "current_tag=$current_tag" >> $GITHUB_OUTPUT
 
         - name: Get Release Info
