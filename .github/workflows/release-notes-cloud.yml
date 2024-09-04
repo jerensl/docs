@@ -1,8 +1,19 @@
 name: Release Notes Publisher Meshery Cloud
 
 on:
-  schedule:
-    - cron:  '0 10 * * *'
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
 
 jobs:
   update_release_notes_docs:
@@ -35,18 +46,12 @@ jobs:
             export RELEASE_BODY=$( cat latest_release.json | jq '.["body"]' | tr -d '"')
 
             printf '%b\n' "---\ntitle: $RELEASE_TAG\ndate: $(date +'%Y-%m-%d')\ntag: $RELEASE_TAG\nprerelease: $PRERELEASE\n---\n\n$RELEASE_BODY" > ./content/en/cloud/reference/releases/$RELEASE_TAG.md
-
-        - name: Pull changes from remote
-          run: git pull origin master
-
-        - name: Commit
-          if: steps.meshery-cloud.outputs.current_tag != steps.meshery-cloud.outputs.release_tag
-          uses: stefanzweifel/git-auto-commit-action@v5
+        - uses: actions/create-github-app-token@v1
+          id: generate-token
           with:
-            file_pattern: docs
-            commit_user_name: l5io
-            commit_user_email: ci@layer5.io
-            commit_author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-            commit_options: '--signoff'
-            commit_message: '[Docs] Release Notes for Meshery ${{ steps.release_drafter.outputs.tag_name }}'
-            branch: master
+            app-id: ${{ secrets.APP_ID }}
+            private-key: ${{ secrets.APP_PRIVATE_KEY }}
+        - uses: peter-evans/create-pull-request@v7
+          with:
+            token: ${{ secrets.RELEASEDRAFTER_PAT }}
+            push-to-fork: jerensl/docs
