@@ -5,4 +5,8 @@ node_modules/
 .vscode/
 
 .DS_Store
+<<<<<<< HEAD
+=======
+
+>>>>>>> 86eb072313caa01257ba3cae4acea6ad303aadbe
 latest_release.json

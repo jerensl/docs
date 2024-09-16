@@ -14,7 +14,11 @@
 	{{ .Content }}
 	{{ range .RegularPages.ByDate.Reverse }}
 	  <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+<<<<<<< HEAD
 	  <p>{{ .Date.Format "01 January 2006" }}</p>
+=======
+	  <p>{{ .Date.Format "Monday, 02-Jan-06 15:04:05 MST" }}</p>
+>>>>>>> 86eb072313caa01257ba3cae4acea6ad303aadbe
 	{{ end }}
 	</section>
 	
@@ -25,4 +29,8 @@
 	{{ partial "page-meta-lastmod.html" . -}}
 
 </div>
+<<<<<<< HEAD
 {{ end -}}
+=======
+{{ end -}}
+>>>>>>> 86eb072313caa01257ba3cae4acea6ad303aadbe
